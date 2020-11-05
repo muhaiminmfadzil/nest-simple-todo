@@ -1,0 +1,13 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TodosTypedef {
+  id: Int!
+  title: String!
+  descriptions: String
+}
+
+type Query {
+  getTodos: [TodosTypedef!]!
+}
