@@ -9,5 +9,6 @@ type TodosTypedef {
 }
 
 type Query {
+  """Get all todo lists"""
   getTodos: [TodosTypedef!]!
 }
