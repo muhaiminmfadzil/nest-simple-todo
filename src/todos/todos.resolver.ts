@@ -19,6 +19,8 @@ export class TodosResolver {
     return this.todos;
   }
 
+  // TODO : Query only one todo item
+
   @Mutation(returns => TodosTypedef, { description: 'Create new todo' })
   createTodo(
     @Args('title', { type: () => String }) title: string,
