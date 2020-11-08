@@ -1,4 +1,14 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+
+export enum TaskStatus {
+  new,
+  inProgress,
+  done,
+}
+
+registerEnumType(TaskStatus, {
+  name: 'TaskStatus',
+});
 
 @ObjectType()
 export class TodosTypedef {
@@ -10,4 +20,7 @@ export class TodosTypedef {
 
   @Field({ nullable: true })
   descriptions: string;
+
+  @Field(type => TaskStatus)
+  status: TaskStatus;
 }
