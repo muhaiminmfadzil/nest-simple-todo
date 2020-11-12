@@ -3,10 +3,12 @@
 # ------------------------------------------------------
 
 type TodosTypedef {
-  id: Int!
+  id: ID!
   title: String!
   descriptions: String
   status: TaskStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 enum TaskStatus {
@@ -15,25 +17,17 @@ enum TaskStatus {
   done
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   """Get all todo lists"""
   getTodos: [TodosTypedef!]!
-  getOneTodo(id: Int!): TodosTypedef!
 }
 
 type Mutation {
   """Create new todo"""
   createTodo(descriptions: String, title: String!): TodosTypedef!
-
-  """Update one todo item"""
-  updateTodo(updateTodoInput: UpdateTodoDto!, id: Int!): TodosTypedef!
-
-  """Delete one todo item"""
-  deleteTodo(id: Int!): Boolean!
-}
-
-input UpdateTodoDto {
-  title: String!
-  descriptions: String
-  status: TaskStatus!
 }
