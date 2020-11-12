@@ -20,6 +20,15 @@ export class TodosResolver {
   }
 
   // TODO : Query only one todo item
+  @Query(returns => TodosTypedef)
+  getOneTodo(@Args('id', { type: () => Int }) id: number): TodosInterface {
+    const index = this.todos.findIndex(todo => todo.id === id);
+
+    if (index === -1)
+      throw new NotFoundException(`Todo item for id ${id} not found!`);
+
+    return this.todos[index];
+  }
 
   @Mutation(returns => TodosTypedef, { description: 'Create new todo' })
   createTodo(

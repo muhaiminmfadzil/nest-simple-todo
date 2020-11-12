@@ -18,6 +18,7 @@ enum TaskStatus {
 type Query {
   """Get all todo lists"""
   getTodos: [TodosTypedef!]!
+  getOneTodo(id: Int!): TodosTypedef!
 }
 
 type Mutation {
