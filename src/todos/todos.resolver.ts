@@ -19,7 +19,6 @@ export class TodosResolver {
     return this.todos;
   }
 
-  // TODO : Query only one todo item
   @Query(returns => TodosTypedef)
   getOneTodo(@Args('id', { type: () => Int }) id: number): TodosInterface {
     const index = this.todos.findIndex(todo => todo.id === id);
@@ -35,7 +34,7 @@ export class TodosResolver {
     @Args('title', { type: () => String }) title: string,
     @Args('descriptions', { type: () => String, nullable: true })
     descriptions: string,
-  ) {
+  ): TodosInterface {
     const newTodo = {
       id: Math.floor(Math.random() * 100000),
       title,
@@ -52,7 +51,7 @@ export class TodosResolver {
     @Args('id', { type: () => Int }) id: number,
     @Args('updateTodoInput', { type: () => UpdateTodoDto })
     updateTodoDto: UpdateTodoDto,
-  ) {
+  ): TodosInterface {
     const index = this.todos.findIndex(todo => todo.id === id);
 
     this.todos[index] = { id, ...updateTodoDto };
@@ -61,7 +60,7 @@ export class TodosResolver {
   }
 
   @Mutation(returns => Boolean, { description: 'Delete one todo item' })
-  deleteTodo(@Args('id', { type: () => Int }) id: number) {
+  deleteTodo(@Args('id', { type: () => Int }) id: number): Boolean {
     const index = this.todos.findIndex(todo => todo.id === id);
 
     if (index < 0) {
