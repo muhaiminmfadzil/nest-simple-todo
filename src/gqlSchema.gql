@@ -1,0 +1,39 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TodosTypedef {
+  id: Int!
+  title: String!
+  descriptions: String
+  status: TaskStatus!
+}
+
+enum TaskStatus {
+  new
+  inProgress
+  done
+}
+
+type Query {
+  """Get all todo lists"""
+  getTodos: [TodosTypedef!]!
+  getOneTodo(id: Int!): TodosTypedef!
+}
+
+type Mutation {
+  """Create new todo"""
+  createTodo(descriptions: String, title: String!): TodosTypedef!
+
+  """Update one todo item"""
+  updateTodo(updateTodoInput: UpdateTodoDto!, id: Int!): TodosTypedef!
+
+  """Delete one todo item"""
+  deleteTodo(id: Int!): Boolean!
+}
+
+input UpdateTodoDto {
+  title: String!
+  descriptions: String
+  status: TaskStatus!
+}
