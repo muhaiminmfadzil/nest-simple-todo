@@ -37,4 +37,10 @@ export class TodosService {
 
     return todo;
   }
+
+  async deleteTodo(id: string): Promise<Boolean> {
+    const deleted = await this.todosRepository.nativeDelete({ id });
+
+    return deleted === 1;
+  }
 }

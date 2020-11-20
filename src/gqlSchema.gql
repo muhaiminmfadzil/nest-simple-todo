@@ -34,6 +34,9 @@ type Mutation {
 
   """Update one todo item"""
   updateTodo(updateTodoInput: UpdateTodoDto!, id: ID!): TodosTypedef!
+
+  """Delete one todo item"""
+  deleteTodo(id: ID!): Boolean!
 }
 
 input UpdateTodoDto {

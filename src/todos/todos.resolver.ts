@@ -44,16 +44,8 @@ export class TodosResolver {
     return this.todoService.updateTodo(id, updateTodoDto);
   }
 
-  // @Mutation(returns => Boolean, { description: 'Delete one todo item' })
-  // deleteTodo(@Args('id', { type: () => Int }) id: number): Boolean {
-  //   const index = this.todos.findIndex(todo => todo.id === id);
-
-  //   if (index < 0) {
-  //     throw new NotFoundException(`Todo item for id ${id} not found!`);
-  //   }
-
-  //   this.todos.splice(index, 1);
-
-  //   return true;
-  // }
+  @Mutation(returns => Boolean, { description: 'Delete one todo item' })
+  deleteTodo(@Args('id', { type: () => ID }) id: string): Promise<Boolean> {
+    return this.todoService.deleteTodo(id);
+  }
 }
