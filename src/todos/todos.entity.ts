@@ -1,5 +1,6 @@
 import {
   Entity,
+  Filter,
   PrimaryKey,
   Property,
   SerializedPrimaryKey,
@@ -8,6 +9,8 @@ import { ObjectId } from '@mikro-orm/mongodb';
 import { TaskStatus } from './todos.typedef';
 
 @Entity()
+@Filter({ name: 'doneOnly', cond: { status: TaskStatus.done } })
+@Filter({ name: 'notDone', cond: { status: { $ne: TaskStatus.done } } })
 export class Todos {
   @PrimaryKey()
   _id: ObjectId;

@@ -17,8 +17,10 @@ export class TodosResolver {
   constructor(private readonly todoService: TodosService) {}
 
   @Query(returns => [TodosTypedef], { description: 'Get all todo lists' })
-  getTodos(): Promise<Todo[]> {
-    return this.todoService.getTodos();
+  getTodos(
+    @Args('done', { type: () => Boolean, nullable: true }) done: Boolean,
+  ): Promise<Todo[]> {
+    return this.todoService.getTodos(done);
   }
 
   @Query(returns => TodosTypedef)

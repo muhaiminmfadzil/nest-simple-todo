@@ -12,8 +12,12 @@ export class TodosService {
     private readonly todosRepository: EntityRepository<Todo>,
   ) {}
 
-  async getTodos(): Promise<Todo[]> {
-    return this.todosRepository.findAll();
+  async getTodos(done?: Boolean): Promise<Todo[]> {
+    if (done === undefined) return this.todosRepository.findAll();
+
+    return done
+      ? this.todosRepository.find({}, { filters: ['doneOnly'] })
+      : this.todosRepository.find({}, { filters: ['notDone'] });
   }
 
   async getOneTodo(id: string): Promise<Todo> {
