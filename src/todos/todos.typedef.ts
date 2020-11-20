@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 export enum TaskStatus {
   new,
@@ -12,7 +12,7 @@ registerEnumType(TaskStatus, {
 
 @ObjectType()
 export class TodosTypedef {
-  @Field(type => Int)
+  @Field(type => ID)
   id: number;
 
   @Field()
@@ -23,4 +23,10 @@ export class TodosTypedef {
 
   @Field(type => TaskStatus)
   status: TaskStatus;
+
+  @Field(type => Date)
+  createdAt: string;
+
+  @Field(type => Date)
+  updatedAt: string;
 }
