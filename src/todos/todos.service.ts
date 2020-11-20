@@ -1,7 +1,8 @@
+import { wrap } from '@mikro-orm/core';
 import { EntityRepository } from '@mikro-orm/mongodb';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { title } from 'process';
+import { UpdateTodoDto } from './dto/updateTodo.dto';
 import { Todos as Todo } from './todos.entity';
 
 @Injectable()
@@ -25,5 +26,15 @@ export class TodosService {
     await this.todosRepository.persistAndFlush(newTodo);
 
     return newTodo;
+  }
+
+  async updateTodo(id: string, updateTodoDto: UpdateTodoDto): Promise<Todo> {
+    const todo = await this.todosRepository.findOneOrFail({ id });
+
+    wrap(todo).assign(updateTodoDto);
+
+    await this.todosRepository.flush();
+
+    return todo;
   }
 }

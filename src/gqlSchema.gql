@@ -31,4 +31,13 @@ type Query {
 type Mutation {
   """Create new todo"""
   createTodo(descriptions: String, title: String!): TodosTypedef!
+
+  """Update one todo item"""
+  updateTodo(updateTodoInput: UpdateTodoDto!, id: ID!): TodosTypedef!
+}
+
+input UpdateTodoDto {
+  title: String!
+  descriptions: String
+  status: TaskStatus!
 }

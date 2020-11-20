@@ -35,18 +35,14 @@ export class TodosResolver {
     return this.todoService.createTodo(title, descriptions);
   }
 
-  // @Mutation(returns => TodosTypedef, { description: 'Update one todo item' })
-  // updateTodo(
-  //   @Args('id', { type: () => Int }) id: number,
-  //   @Args('updateTodoInput', { type: () => UpdateTodoDto })
-  //   updateTodoDto: UpdateTodoDto,
-  // ): TodosInterface {
-  //   const index = this.todos.findIndex(todo => todo.id === id);
-
-  //   this.todos[index] = { id, ...updateTodoDto };
-
-  //   return this.todos[index];
-  // }
+  @Mutation(returns => TodosTypedef, { description: 'Update one todo item' })
+  updateTodo(
+    @Args('id', { type: () => ID }) id: string,
+    @Args('updateTodoInput', { type: () => UpdateTodoDto })
+    updateTodoDto: UpdateTodoDto,
+  ): Promise<Todo> {
+    return this.todoService.updateTodo(id, updateTodoDto);
+  }
 
   // @Mutation(returns => Boolean, { description: 'Delete one todo item' })
   // deleteTodo(@Args('id', { type: () => Int }) id: number): Boolean {
