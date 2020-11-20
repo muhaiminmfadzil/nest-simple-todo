@@ -1,5 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { GetTodoArgs } from './dto/getTodo.args';
 import { UpdateTodoDto } from './dto/updateTodo.dto';
 import { Todos as Todo } from './todos.entity';
 import { TodosService } from './todos.service';
@@ -17,10 +18,10 @@ export class TodosResolver {
   constructor(private readonly todoService: TodosService) {}
 
   @Query(returns => [TodosTypedef], { description: 'Get all todo lists' })
-  getTodos(
-    @Args('done', { type: () => Boolean, nullable: true }) done: Boolean,
-  ): Promise<Todo[]> {
-    return this.todoService.getTodos(done);
+  getTodos(@Args() getTodosArgs: GetTodoArgs): Promise<Todo[]> {
+    const { done, offset, limit } = getTodosArgs;
+
+    return this.todoService.getTodos(done, offset, limit);
   }
 
   @Query(returns => TodosTypedef)

@@ -24,7 +24,7 @@ scalar DateTime
 
 type Query {
   """Get all todo lists"""
-  getTodos(done: Boolean): [TodosTypedef!]!
+  getTodos(offset: Int = 0, limit: Int = 2, done: Boolean): [TodosTypedef!]!
   getOneTodo(id: ID!): TodosTypedef!
 }
 

@@ -1,4 +1,4 @@
-import { wrap } from '@mikro-orm/core';
+import { QueryOrder, wrap } from '@mikro-orm/core';
 import { EntityRepository } from '@mikro-orm/mongodb';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
@@ -12,12 +12,21 @@ export class TodosService {
     private readonly todosRepository: EntityRepository<Todo>,
   ) {}
 
-  async getTodos(done?: Boolean): Promise<Todo[]> {
-    if (done === undefined) return this.todosRepository.findAll();
+  async getTodos(
+    done?: Boolean,
+    offset?: number,
+    limit?: number,
+  ): Promise<Todo[]> {
+    if (done === undefined)
+      return this.todosRepository.findAll({
+        offset,
+        limit,
+        orderBy: { createdAt: QueryOrder.DESC },
+      });
 
     return done
-      ? this.todosRepository.find({}, { filters: ['doneOnly'] })
-      : this.todosRepository.find({}, { filters: ['notDone'] });
+      ? this.todosRepository.find({}, { filters: ['doneOnly'], offset, limit })
+      : this.todosRepository.find({}, { filters: ['notDone'], offset, limit });
   }
 
   async getOneTodo(id: string): Promise<Todo> {
