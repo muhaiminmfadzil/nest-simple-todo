@@ -25,6 +25,7 @@ scalar DateTime
 type Query {
   """Get all todo lists"""
   getTodos: [TodosTypedef!]!
+  getOneTodo(id: ID!): TodosTypedef!
 }
 
 type Mutation {

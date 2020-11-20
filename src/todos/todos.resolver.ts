@@ -1,5 +1,5 @@
 import { NotFoundException } from '@nestjs/common';
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpdateTodoDto } from './dto/updateTodo.dto';
 import { Todos as Todo } from './todos.entity';
 import { TodosService } from './todos.service';
@@ -21,15 +21,10 @@ export class TodosResolver {
     return this.todoService.getTodos();
   }
 
-  // @Query(returns => TodosTypedef)
-  // getOneTodo(@Args('id', { type: () => Int }) id: number): TodosInterface {
-  //   const index = this.todos.findIndex(todo => todo.id === id);
-
-  //   if (index === -1)
-  //     throw new NotFoundException(`Todo item for id ${id} not found!`);
-
-  //   return this.todos[index];
-  // }
+  @Query(returns => TodosTypedef)
+  getOneTodo(@Args('id', { type: () => ID }) id: string): Promise<Todo> {
+    return this.todoService.getOneTodo(id);
+  }
 
   @Mutation(returns => TodosTypedef, { description: 'Create new todo' })
   createTodo(

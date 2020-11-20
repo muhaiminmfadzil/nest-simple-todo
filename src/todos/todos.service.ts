@@ -15,6 +15,10 @@ export class TodosService {
     return this.todosRepository.findAll();
   }
 
+  async getOneTodo(id: string): Promise<Todo> {
+    return this.todosRepository.findOneOrFail({ id });
+  }
+
   async createTodo(title: string, descriptions?: string): Promise<Todo> {
     const newTodo = new Todo(title, descriptions);
 
